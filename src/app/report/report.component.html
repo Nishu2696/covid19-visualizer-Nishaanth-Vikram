@@ -1,0 +1,125 @@
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-12">
+                    <table style="border: 1px solid black; margin-top: 75px;"  class="customers">
+                        <tr>
+                            <th>
+                                State/UT-Name
+                            </th>
+                            <th>
+                                Confirmed-Case
+                            </th>
+                            <th>
+                                Active-Case
+                            </th>
+                            <th>
+                                Recovered-Case
+                            </th>
+                            <th>
+                                Deceased-Case
+                            </th>
+                        </tr>
+                        <tr *ngFor="let states of state_wise; index as i " class="mt-2">
+                            <td *ngFor="let items of states">
+                                <a [routerLink]="['/statereport', i]">
+                                    {{items}}
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mt-5">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table style="border: 1px solid black;" class="customers">
+                                <tr>
+                                    <th>
+                                        Total-Confirmed Case
+                                    </th>
+                                    <th>
+                                        Total-Deceased Case
+                                    </th>
+                                    <th>
+                                        Total-Recovered Case
+                                    </th>
+                                    <th>
+                                        Total-Active Case
+                                    </th>
+                                    <th>
+                                        Total-Individual-Tested
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td *ngFor="let counts of country_wise">
+                                        {{counts}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-lg-12 mt-5" style="display: block;">
+                            <canvas baseChart width="400" height="100" 
+                                [datasets]="lineChartData"
+                                [labels]="lineChartLabels" 
+                                [options]="lineChartOptions" 
+                                [colors]="lineChartColors"
+                                [legend]="lineChartLegend" 
+                                [chartType]="lineChartType" 
+                                [plugins]="lineChartPlugins">
+                            </canvas>
+                        </div>
+                        <div class="col-lg-12 mt-5" style="display: block;">
+                            <canvas baseChart width="400" height="100" 
+                                [datasets]="lineChartData1"
+                                [labels]="lineChartLabels1" 
+                                [options]="lineChartOptions1" 
+                                [colors]="lineChartColors1"
+                                [legend]="lineChartLegend1" 
+                                [chartType]="lineChartType1" 
+                                [plugins]="lineChartPlugins1">
+                            </canvas>
+                        </div>
+                        <div class="col-lg-12 mt-5" style="display: block;">
+                            <canvas baseChart width="400" height="100" 
+                                [datasets]="lineChartData2"
+                                [labels]="lineChartLabels2" 
+                                [options]="lineChartOptions2" 
+                                [colors]="lineChartColors2"
+                                [legend]="lineChartLegend2" 
+                                [chartType]="lineChartType2" 
+                                [plugins]="lineChartPlugins2">
+                            </canvas>
+                        </div>
+                        <div class="col-lg-12 mt-5 " style="display: block; ">
+                            <canvas baseChart width="400" height="100" 
+                                [datasets]="lineChartData3"
+                                [labels]="lineChartLabels3" 
+                                [options]="lineChartOptions3" 
+                                [colors]="lineChartColors3"
+                                [legend]="lineChartLegend3" 
+                                [chartType]="lineChartType3" 
+                                [plugins]="lineChartPlugins3">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div *ngFor="let states of state_wise" class="mt-5">
+    <div class="row" *ngFor="let items of states">
+        <div class="col-lg-3">
+            {{items}}
+        </div>
+    </div>
+    <div class="p-2 bd-highlight" *ngFor="let count of country_wise">
+                                    {{count}}
+                                </div>
+</div>-->

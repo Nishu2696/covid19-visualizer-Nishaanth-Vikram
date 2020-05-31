@@ -1,0 +1,38 @@
+<section class="corona">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>
+                    What is CORONA VIRUS?
+                </h2>
+                <p>
+                    Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus.
+                    Most people who fall sick with COVID-19 will experience mild to moderate symptoms and recover
+                    without special treatment.
+                </p>
+                <br>
+                <h2>
+                    Global cases as well as Global Casualties
+                </h2>
+                <table class="customers">
+                    <tr>
+                        <th>
+                            Globally Confirmed Count
+                        </th>
+                        <th>
+                            Globally Deceased Counts
+                        </th>
+                        <th>
+                            Globally Recovered Counts
+                        </th>
+                    </tr>
+                    <tr>
+                        <td *ngFor="let counts of global">
+                            {{counts}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
