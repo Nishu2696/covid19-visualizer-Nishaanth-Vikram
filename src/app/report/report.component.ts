@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticateService } from '../authenticate.service';
 import { NationalService } from '../national.service';
+import { monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 
 @Component({
   selector: 'app-report',
@@ -23,21 +24,19 @@ export class ReportComponent implements OnInit {
   public lineChartType;
   public lineChartPlugins;
 
-  public lineChartData1;
-  public lineChartLabels1;
-  public lineChartOptions1;
-  public lineChartColors1;
-  public lineChartLegend1;
-  public lineChartType1;
-  public lineChartPlugins1;
+  public barChartData;
+  public barChartLabels;
+  public barChartOptions;
+  public barChartPlugins;
+  public barChartLegend;
+  public barChartType;
 
-  public lineChartData2;
-  public lineChartLabels2;
-  public lineChartOptions2;
-  public lineChartColors2;
-  public lineChartLegend2;
-  public lineChartType2;
-  public lineChartPlugins2;
+  public pieChartData;
+  public pieChartLabels;
+  public pieChartType;
+  public pieChartOptions;
+  public pieChartPlugins;
+  public pieChartLegend;
 
   public lineChartData3;
   public lineChartLabels3;
@@ -49,15 +48,20 @@ export class ReportComponent implements OnInit {
   constructor(
     private _authenticate: AuthenticateService,
     private _national: NationalService
-  ) { }
+  ) {
+    monkeyPatchChartJsTooltip();
+    monkeyPatchChartJsLegend();
+   }
 
   ngOnInit() {
     //CONFIRMED CASES
     this.lineChartData = [
-      { data: [], 
-        label: 'Total-Confirmed-Case' },
+      {
+        data: [],
+        label: 'Total-Confirmed-Case'
+      },
     ];
-    this.lineChartLabels = [ 'February-1', 'March-1', 'April-1', 'May-1', 'June-1'];
+    this.lineChartLabels = ['February-1', 'March-1', 'April-1', 'May-1', 'June-1'];
     this.lineChartOptions = {
       responsive: true,
     };
@@ -72,30 +76,40 @@ export class ReportComponent implements OnInit {
     this.lineChartPlugins = [];
 
     //DECEASED CASE
-    this.lineChartData1 = [
-      { data: [], 
-        label: 'Total-Deceased-Case' },
-    ];
-    this.lineChartLabels1 = [ 'February-1', 'March-1', 'April-1', 'May-1', 'June-1'];
-    this.lineChartOptions1 = {
+    this.barChartOptions = {
       responsive: true,
     };
-    this.lineChartColors1 = [
-      {
-        borderColor: 'black',
-        backgroundColor: 'rgba(255,0,0,0.3)',
-      },
+    this.barChartLabels = ['CONFIRMED', 'DECEASED', 'RECOVERED', 'TOTAL-TESTED'];
+    this.barChartType = 'bar';
+    this.barChartLegend = true;
+    this.barChartPlugins = [];
+
+    this.barChartData = [
+      { data: [], label: 'FEBURARY' },
+      /*{ data: [], label: 'MARCH' },
+      { data: [], label: 'APRIL' },
+      { data: [], label: 'MAY' }*/
+      //{ data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
     ];
-    this.lineChartLegend1 = true;
-    this.lineChartType1 = 'line';
-    this.lineChartPlugins1 = [];
 
     //RECOVERED CASES
-    this.lineChartData2 = [
-      { data: [], 
-        label: 'Total-Recovered-Case' },
+
+    this.pieChartOptions = {
+      responsive: true,
+    };
+    this.pieChartLabels = [['Confirmed'], ['deceased'],['recovered'],  'totaltested'];
+    this.pieChartData= [];
+    this.pieChartType = 'doughnut';
+    this.pieChartLegend = true;
+    this.pieChartPlugins = [];
+
+    /*this.lineChartData2 = [
+      {
+        data: [],
+        label: 'Total-Recovered-Case'
+      },
     ];
-    this.lineChartLabels2 = [ 'February-1', 'March-1', 'April-1', 'May-1', 'June-1'];
+    this.lineChartLabels2 = ['February-1', 'March-1', 'April-1', 'May-1', 'June-1'];
     this.lineChartOptions2 = {
       responsive: true,
     };
@@ -107,14 +121,16 @@ export class ReportComponent implements OnInit {
     ];
     this.lineChartLegend2 = true;
     this.lineChartType2 = 'line';
-    this.lineChartPlugins2 = [];
+    this.lineChartPlugins2 = [];*/
 
     //ACTIVE CASES
     this.lineChartData3 = [
-      { data: [], 
-        label: 'Total-Sample-Tested-Case' },
+      {
+        data: [],
+        label: 'Total-Sample-Tested-Case'
+      },
     ];
-    this.lineChartLabels3 = [ 'February-1', 'March-1', 'April-1', 'May-1', 'June-1'];
+    this.lineChartLabels3 = ['February-1', 'March-1', 'April-1', 'May-1', 'June-1'];
     this.lineChartOptions3 = {
       responsive: true,
     };
@@ -198,14 +214,19 @@ export class ReportComponent implements OnInit {
             //console.log(value);
             //console.log(value.length);
             for (let j = 0; j < value.length; j++) {
+              let count=0;
               //console.log(value[""+j+""]["totalconfirmed"]);
               totalconfirmed = totalconfirmed + parseInt(value["" + j + ""]["dailyconfirmed"]);
               totaldeceased = totaldeceased + parseInt(value["" + j + ""]["dailydeceased"]);
               totalrecovered = totalrecovered + parseInt(value["" + j + ""]["dailyrecovered"]);
-              if((j%30) == 0){
+              if ((j % 30) == 0) {
                 this.lineChartData[0]["data"].push(totalconfirmed);
-                this.lineChartData1[0]["data"].push(totaldeceased);
-                this.lineChartData2[0]["data"].push(totalrecovered);
+                count++;
+              }
+              if(j == value.length -1){
+                this.barChartData[count]["data"].push(totalconfirmed, totaldeceased, totalrecovered);
+                console.log("this.barChartData["+count+"][data]", this.barChartData[count]["data"]);
+                this.pieChartData.push(totalconfirmed, totaldeceased, totalrecovered);
               }
             }
           }
@@ -217,13 +238,18 @@ export class ReportComponent implements OnInit {
             }
           }
           if (key[i] == "tested") {
+            let count=0;
             let value = Object.values(this.country[key[i]]);
             //console.log(value);
             //console.log(value.length);
-            for (let j = value.length -1; j < value.length; j++) {
+            for (let j = value.length - 1; j < value.length; j++) {
               //console.log(value["" + j + ""]["totalsamplestested"]);
               if ((value["" + j + ""]["totalsamplestested"]) != "") {
                 totalindividualstested = totalindividualstested + parseInt(value["" + j + ""]["totalsamplestested"]);
+                this.barChartData[count]["data"].push(totalindividualstested);
+                console.log("this.barChartData["+count+"][data]", this.barChartData[count]["data"]);
+                count++;
+                this.pieChartData.push(totalindividualstested);
               }
             }
             for (let k = 0; k < value.length; k++) {
@@ -231,7 +257,7 @@ export class ReportComponent implements OnInit {
               if ((value["" + k + ""]["totalsamplestested"]) != "") {
                 sample = sample + parseInt(value["" + k + ""]["totalsamplestested"]);
               }
-              if((k%15) == 0){
+              if ((k % 25) == 0) {
                 this.lineChartData3[0]["data"].push(sample);
               }
             }

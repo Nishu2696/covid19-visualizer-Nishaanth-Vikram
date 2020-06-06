@@ -1,9 +1,36 @@
+<header>
+    <div class="conatiner">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand text-white" href="#">COVID-19/SARS-2.0</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-lg-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-white bg-dark" routerLink="">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <!--<li class="nav-item">
+                        <a class="nav-link text-white bg-dark" routerLink="/login">Log-in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white bg-dark" routerLink="/register">Register</a>
+                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link text-white bg-dark" routerLink="">Log-out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
 <div class="container-fluid">
     <div class="row ">
         <div class="col-lg-6">
             <div class="row">
                 <div class="col-lg-12">
-                    <table style="border: 1px solid black; margin-top: 75px;"  class="customers">
+                    <table style="border: 1px solid black; margin-top: 75px;" class="customers">
                         <tr>
                             <th>
                                 State/UT-Name
@@ -63,17 +90,23 @@
                             </table>
                         </div>
                         <div class="col-lg-12 mt-5" style="display: block;">
-                            <canvas baseChart width="400" height="100" 
-                                [datasets]="lineChartData"
-                                [labels]="lineChartLabels" 
-                                [options]="lineChartOptions" 
-                                [colors]="lineChartColors"
-                                [legend]="lineChartLegend" 
-                                [chartType]="lineChartType" 
-                                [plugins]="lineChartPlugins">
+                            <canvas baseChart width="400" height="100" [datasets]="lineChartData"
+                                [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
+                                [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
                             </canvas>
                         </div>
                         <div class="col-lg-12 mt-5" style="display: block;">
+                            <canvas baseChart width="400" height="100" [datasets]="barChartData"
+                                [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins"
+                                [legend]="barChartLegend" [chartType]="barChartType">
+                            </canvas>
+                        </div>
+                        <div class="col-lg-12 mt-5" style="display: block;">
+                            <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                                [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+                            </canvas>
+                        </div>
+                        <!--<div class="col-lg-12 mt-5" style="display: block;">
                             <canvas baseChart width="400" height="100" 
                                 [datasets]="lineChartData1"
                                 [labels]="lineChartLabels1" 
@@ -85,25 +118,15 @@
                             </canvas>
                         </div>
                         <div class="col-lg-12 mt-5" style="display: block;">
-                            <canvas baseChart width="400" height="100" 
-                                [datasets]="lineChartData2"
-                                [labels]="lineChartLabels2" 
-                                [options]="lineChartOptions2" 
-                                [colors]="lineChartColors2"
-                                [legend]="lineChartLegend2" 
-                                [chartType]="lineChartType2" 
-                                [plugins]="lineChartPlugins2">
+                            <canvas baseChart width="400" height="100" [datasets]="lineChartData2"
+                                [labels]="lineChartLabels2" [options]="lineChartOptions2" [colors]="lineChartColors2"
+                                [legend]="lineChartLegend2" [chartType]="lineChartType2" [plugins]="lineChartPlugins2">
                             </canvas>
-                        </div>
+                        </div>-->
                         <div class="col-lg-12 mt-5 " style="display: block; ">
-                            <canvas baseChart width="400" height="100" 
-                                [datasets]="lineChartData3"
-                                [labels]="lineChartLabels3" 
-                                [options]="lineChartOptions3" 
-                                [colors]="lineChartColors3"
-                                [legend]="lineChartLegend3" 
-                                [chartType]="lineChartType3" 
-                                [plugins]="lineChartPlugins3">
+                            <canvas baseChart width="400" height="100" [datasets]="lineChartData3"
+                                [labels]="lineChartLabels3" [options]="lineChartOptions3" [colors]="lineChartColors3"
+                                [legend]="lineChartLegend3" [chartType]="lineChartType3" [plugins]="lineChartPlugins3">
                             </canvas>
                         </div>
                     </div>
