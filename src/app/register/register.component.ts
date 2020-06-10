@@ -59,4 +59,9 @@ export class RegisterComponent implements OnInit {
     }
     this.router.navigate(['/login']);
   }
+
+  logout(){
+    window.localStorage.removeItem("token");
+    this.router.navigate(['']);
+  }
 }

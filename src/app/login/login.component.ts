@@ -47,6 +47,9 @@ export class LoginComponent implements OnInit {
           console.log(this.value);
           console.log(this.value["token"]);
           if (this.value['token'] != undefined) {
+            let value1 = this.value['token'];
+            localStorage.setItem("token" , value1);
+            console.log(window.localStorage.getItem("token"));
             this.router.navigate(['/report']);
           }
         })
@@ -76,6 +79,11 @@ export class LoginComponent implements OnInit {
       })
     }*/
 
+  }
+
+  logout(){
+    window.localStorage.removeItem("token");
+    this.router.navigate(['/logout']);
   }
 
 }

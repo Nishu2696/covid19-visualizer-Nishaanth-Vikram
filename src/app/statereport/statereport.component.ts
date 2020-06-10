@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StateService } from '../state.service';
 
 @Component({
@@ -18,7 +18,8 @@ export class StatereportComponent implements OnInit {
 
   constructor(
     private _state: StateService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
     this.currentId = this.activatedRoute.snapshot.params.id;
   }
@@ -107,6 +108,11 @@ export class StatereportComponent implements OnInit {
     }).catch((err) => {
       console.log("Error generated:", err);
     });
+  }
+
+  logout(){
+    window.localStorage.removeItem("token");
+    this.router.navigate(['/login']);
   }
 
 }

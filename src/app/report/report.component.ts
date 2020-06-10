@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticateService } from '../authenticate.service';
 import { NationalService } from '../national.service';
 import { monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-report',
@@ -45,9 +46,12 @@ export class ReportComponent implements OnInit {
   public lineChartLegend3;
   public lineChartType3;
   public lineChartPlugins3;
+
+
   constructor(
     private _authenticate: AuthenticateService,
-    private _national: NationalService
+    private _national: NationalService,
+    private router:Router
   ) {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
@@ -270,5 +274,10 @@ export class ReportComponent implements OnInit {
     }).catch((err) => {
       console.log("Error generated:", err);
     });
+  }
+
+  logout(){
+    window.localStorage.removeItem("token");
+    this.router.navigate(['/login']);
   }
 }
